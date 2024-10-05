@@ -11,6 +11,7 @@ import { FaUserShield, FaBuilding, FaDatabase, FaUsers } from 'react-icons/fa';
 import { AiOutlineFileText } from 'react-icons/ai';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import Bossing from '../Images/bossing.jpg';
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
@@ -170,6 +171,13 @@ const AdminSidebar = ({ isAdminSidebar }) => {
                         title="Reports"
                         to="/reports"
                         icon={<AiOutlineFileText />}
+                        selected={selected}
+                        setSelected={setSelected}
+                        />
+                         <Item
+                        title="Contacts Information"
+                        to="/contacts"
+                        icon={<ContactsOutlinedIcon />}
                         selected={selected}
                         setSelected={setSelected}
                         />

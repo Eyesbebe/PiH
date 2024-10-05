@@ -12,6 +12,7 @@ import Reports from "./components/admin/pages/reports/Reports";
 import Form from "./components/admin/pages/form/Form";
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { ColorModeContext, useMode } from "./theme";
+import Contacts from "./components/admin/pages/contacts/Contacts";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -34,6 +35,7 @@ function App() {
                 <Route path='/manageemployeeacc' element={<ManageEmployeeAcc />}/>
                 <Route path='/backuprestore' element={<BackupRestore />}/>
                 <Route path='/reports' element={<Reports />}/>
+                <Route path="/contacts" element={<Contacts />} />
                 <Route path='/form' element={<Form />} />
               
               </Routes>
