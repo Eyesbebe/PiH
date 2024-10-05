@@ -6,6 +6,7 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { FaUserShield, FaBuilding, FaDatabase, FaUsers } from 'react-icons/fa';
 import { AiOutlineFileText } from 'react-icons/ai';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -43,7 +44,7 @@ const AdminSidebar = ({ isAdminSidebar }) => {
         <Box
             sx={{
                 "& .pro-sidebar-inner": {
-                    background: '${colors.primary[400]} !important',  
+                    background: '${theme.palette.mode === "light" ? colors.lightBlue.main : colors.primary[400]} !important',  
                 },
                 "& .pro-icon-wrapper": {
                     backgroundColor: "transparent !important",
@@ -52,7 +53,7 @@ const AdminSidebar = ({ isAdminSidebar }) => {
                     padding: "5px 35px 5px 20px !important",
                 },
                 "& .pro-inner-item:hover": {
-                    color: "868dfb !important",
+                    color: theme.palette.mode === "light" ? colors.lightBlue.hover : "868dfb !important",
                 },
                 "& .pro-menu-item.active": {
                     color: "#687fa !important",
@@ -171,6 +172,20 @@ const AdminSidebar = ({ isAdminSidebar }) => {
                         icon={<AiOutlineFileText />}
                         selected={selected}
                         setSelected={setSelected}
+                        />
+                    <Typography
+                        variant="h6"
+                        color={colors.grey[300]}
+                        sx={{ m: "15px 0 5px 20px "}}
+                    >
+                        Pages
+                    </Typography>
+                        <Item 
+                        title="User Profile Form"
+                        to="/form"
+                        icon={<PersonAddIcon />}
+                        selected={selected}
+                        setSelected={setIsCollapsed}
                         />
                     </Box>
                 </Menu>

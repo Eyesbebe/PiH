@@ -1,5 +1,6 @@
     import { createContext, useState, useMemo } from "react";
     import { createTheme } from '@mui/material/styles';
+import { lightBlue } from "@mui/material/colors";
 
     // color design tokens export
     export const tokens = (mode) => ({
@@ -116,6 +117,10 @@
                 700: "#a4a9fc",
                 800: "#c3c6fd",
                 900: "#e1e2fe",
+            },
+            lightBlue: {
+                main: "add8e6",
+                hover: "#4682b4",
             },
         }),
     });

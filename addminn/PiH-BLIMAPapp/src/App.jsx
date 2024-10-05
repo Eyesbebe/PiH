@@ -9,6 +9,7 @@ import ManageBranches from "./components/admin/pages/manage_branches/ManageBranc
 import ManageEmployeeAcc from "./components/admin/pages/manage_employee/ManageEmployeeAcc";
 import BackupRestore from "./components/admin/pages/backuprestore/BackupRestore";
 import Reports from "./components/admin/pages/reports/Reports";
+import Form from "./components/admin/pages/form/Form";
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { ColorModeContext, useMode } from "./theme";
 
@@ -33,6 +34,7 @@ function App() {
                 <Route path='/manageemployeeacc' element={<ManageEmployeeAcc />}/>
                 <Route path='/backuprestore' element={<BackupRestore />}/>
                 <Route path='/reports' element={<Reports />}/>
+                <Route path='/form' element={<Form />} />
               
               </Routes>
             </main>
