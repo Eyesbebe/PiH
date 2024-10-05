@@ -2,7 +2,7 @@ import React from 'react'
 
 const ManageEmployeeAcc = () => {
   return (
-    <div>ManageEmployeeAcc</div>
+    <div>Manage Employee Acountc</div>
   )
 }
 

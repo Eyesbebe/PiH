@@ -9,6 +9,7 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import { FaUserShield, FaBuilding, FaDatabase, FaUsers } from 'react-icons/fa';
 import { AiOutlineFileText } from 'react-icons/ai';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import Bossing from '../Images/bossing.jpg';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
@@ -77,7 +78,7 @@ const AdminSidebar = ({ isAdminSidebar }) => {
                             ml="15px"
                         >
                             <Typography variant="h3" color={colors.grey[100]}>
-                                PLI-BMAP
+                                PIHMP-BLIMAPS
                             </Typography>
                             <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                                 <MenuOutlinedIcon/>
@@ -90,10 +91,10 @@ const AdminSidebar = ({ isAdminSidebar }) => {
                         <Box mb="25px">
                             <Box display="flex" justifyContent="center" alignItems="center">
                                 <img
-                                alt="profile-user"
-                                width="100"
-                                height="100px"
-                                src={"../../assets/user.svg"}
+                                alt="user"
+                                width="80"
+                                height="80"
+                                src={Bossing}
                                 style={{ cursor: "pointer", borderRadius: "50%" }}
                                 />
                             </Box>

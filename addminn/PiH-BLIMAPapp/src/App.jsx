@@ -2,13 +2,13 @@ import { useState } from 'react';
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminSidebar from './components/admin/components/AdminSidebar';
 import Topbar from "./components/admin/components/Topbar"
-import Dashboard from "./components/admin/pages/Dashboard";
-import ManageAdminAcc from "./components/admin/pages/ManageAdminAcc";
-import ManageAgentAcc from "./components/admin/pages/ManageAgentAcc";
-import ManageBranches from "./components/admin/pages/ManageBranches";
-import ManageEmployeeAcc from "./components/admin/pages/ManageEmployeeAcc";
-import BackupRestore from "./components/admin/pages/BackupRestore";
-import Reports from "./components/admin/pages/Reports";
+import Dashboard from "./components/admin/pages/dashboard/Dashboard";
+import ManageAdminAcc from "./components/admin/pages/manage_admin/ManageAdminAcc";
+import ManageAgentAcc from "./components/admin/pages/manage_agent/ManageAgentAcc";
+import ManageBranches from "./components/admin/pages/manage_branches/ManageBranches";
+import ManageEmployeeAcc from "./components/admin/pages/manage_employee/ManageEmployeeAcc";
+import BackupRestore from "./components/admin/pages/backuprestore/BackupRestore";
+import Reports from "./components/admin/pages/reports/Reports";
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { ColorModeContext, useMode } from "./theme";
 

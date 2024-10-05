@@ -2,7 +2,7 @@ import React from 'react'
 
 const ManageAdminAcc = () => {
   return (
-    <div>ManageAdminAcc</div>
+    <div>Manage Admin Account</div>
   )
 }
 
