@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import { FaUsers, FaMapMarkedAlt,  FaUserCheck, FaUserMinus } from "react-icons/fa";
+import { FaUsers, FaMapMarkedAlt,  FaUserCheck, } from "react-icons/fa";
 import Bossing from "../Images/bossing.jpg";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -26,15 +26,15 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     );
 };
 
-const AgentSidebar = ({ isAgentSidebar }) => {
+const InformationOfficerSidebar = ({ isInformationOfficerSidebar }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [isCollapsed, setIsCollapsed] = useState(isAgentSidebar);
+    const [isCollapsed, setIsCollapsed] = useState(isInformationOfficerSidebar);
     const [selected, setSelected] = useState("Map");
 
     useEffect(() => {
-        setIsCollapsed(isAgentSidebar);
-    }, [isAgentSidebar]);
+        setIsCollapsed(isInformationOfficerSidebar);
+    }, [isInformationOfficerSidebar]);
 
     return (
         <Box
@@ -105,7 +105,7 @@ const AgentSidebar = ({ isAgentSidebar }) => {
                             BOSSING 
                             </Typography>
                             <Typography variant="h5" color={colors.greenAccent[500]}>
-                                Agent
+                                Information Officer
                             </Typography>
                             </Box>
                         </Box>
@@ -128,8 +128,8 @@ const AgentSidebar = ({ isAgentSidebar }) => {
                         data
                     </Typography>
                         <Item
-                        title="List of Client"
-                        to="/list"
+                        title="List of Agent"
+                        to="/agentlist"
                         icon={<FaUsers />}
                         selected={selected}
                         setSelected={setSelected}
@@ -141,14 +141,7 @@ const AgentSidebar = ({ isAgentSidebar }) => {
                         selected={selected}
                         setSelected={setSelected}
                         />
-                        <Item
-                        title="Declined Client"
-                        to="/declinedclients"
-                        icon={<FaUserMinus />}
-                        selected={selected}
-                        setSelected={setSelected}
-                        />
-
+                        
                     </Box>
                 </Menu>
             </ProSidebar>
@@ -156,4 +149,4 @@ const AgentSidebar = ({ isAgentSidebar }) => {
     );
 };
 
-export default AgentSidebar;
+export default InformationOfficerSidebar;

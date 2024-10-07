@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AgentSidebar from './components/agent/components/AgentSidebar';
-import Topbar from "./components/agent/components/Topbar"
+import InformationOfficerSidebar from './components/information_officer/components/InformationOfficerSidebar';
+import Topbar from "./components/information_officer/components/Topbar"
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { ColorModeContext, useMode } from "./theme";
-import Map from './components/agent/pages/map/Map';
-import ApprovedClient from './components/agent/pages/clientlist/ApprovedClient';
-import DeclinedClient from './components/agent/pages/clientlist/DeclinedClient';
+import Map from './components/information_officer/pages/map/Map';
+import AgentList from './components/information_officer/pages/agentlist/AgentList';
+import ApprovedClient from './components/information_officer/pages/clientlist/ApprovedClient';
+
 
 function App() {
   const [theme, colorMode] = useMode();
-  const [isAgentSidebar, setIsAgentSidebar] = useState(true);
+  const [isInformationOfficerSidebar, setIsInformationOfficerSidebar] = useState(true);
 
   return (
     <Router>
@@ -18,13 +19,13 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <div className='app'>
-            <AgentSidebar isAgentSidebar={isAgentSidebar} />
+            <InformationOfficerSidebar isInformationOfficerSidebar={isInformationOfficerSidebar} />
             <main className="content">
-              <Topbar setIsAdminSidebar={setIsAgentSidebar} />
+              <Topbar setIsAdminSidebar={setIsInformationOfficerSidebar} />
               <Routes>
                 <Route path='/' element={<Map />}/>
+                <Route path='/agentlist' element={<AgentList />} />
                 <Route path='/approvedclients' element={<ApprovedClient />}/>
-                <Route path='/declinedclients' element={<DeclinedClient />}/>
               </Routes>
             </main>
           </div>
