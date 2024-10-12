@@ -54,6 +54,38 @@ const CashierSidebar = ({ isCashierSidebar }) => {
                 "& .pro-menu-item.active": {
                     color: "#687fa !important",
                 },
+                [theme.breakpoints.down('lg')]: {
+                    '& .pro-sidebar-inner': {
+                    width: 250, // adjust width for large screens
+                    },
+                    '& .pro-inner-item': {
+                    padding: '5px 30px 5px 15px !important',
+                    },
+                },
+                [theme.breakpoints.down('md')]: {
+                    '& .pro-sidebar-inner': {
+                    width: 200, // adjust width for medium screens
+                    },
+                    '& .pro-inner-item': {
+                    padding: '5px 25px 5px 10px !important',
+                    },
+                },
+                [theme.breakpoints.down('sm')]: {
+                    '& .pro-sidebar-inner': {
+                    width: 150, // adjust width for small screens
+                    },
+                    '& .pro-inner-item': {
+                    padding: '5px 20px 5px 5px !important',
+                    },
+                },
+                [theme.breakpoints.down('xs')]: {
+                    '& .pro-sidebar-inner': {
+                    width: 100, // adjust width for extra small screens
+                    },
+                    '& .pro-inner-item': {
+                    padding: '5px 15px 5px 0px !important',
+                    },
+                },
             }}
         >
             <ProSidebar collapsed={isCollapsed}>

@@ -1,6 +1,6 @@
-    import { createContext, useState, useMemo } from "react";
-    import { createTheme } from '@mui/material/styles';
-import { lightBlue } from "@mui/material/colors";
+import { createContext, useState, useMemo } from "react";
+import { createTheme } from '@mui/material/styles';
+
 
     // color design tokens export
     export const tokens = (mode) => ({
@@ -163,8 +163,11 @@ import { lightBlue } from "@mui/material/colors";
                     main: colors.grey[500],
                     light: colors.grey[100],
                 },
-                background: {
-                    default: "#fcfcfc",
+                background: { default: "#fcfcfc"},
+                blueAccent: {
+                    main: colors.blueAccent[500],
+                    light: colors.blueAccent[300],
+                    dark: colors.blueAccent[700]
                 },
             }),
         },
