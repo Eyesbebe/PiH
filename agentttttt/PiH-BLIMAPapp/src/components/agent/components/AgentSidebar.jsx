@@ -15,7 +15,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         <MenuItem
             active={selected === title}
             style={{
-                color: colors.grey[100],
+                color: colors.grey[500],
             }}
             onClick={() => setSelected(title)}
             icon={icon}
@@ -40,7 +40,7 @@ const AgentSidebar = ({ isAgentSidebar }) => {
         <Box
             sx={{
                 "& .pro-sidebar-inner": {
-                    background: '${theme.palette.mode === "light" ? colors.lightBlue.main : colors.primary[400]} !important',  
+                    background: '${theme.palette.mode === "light" ? colors.blueAccent.main : colors.blueAccent[400]} !important',  
                 },
                 "& .pro-icon-wrapper": {
                     backgroundColor: "transparent !important",
@@ -49,11 +49,45 @@ const AgentSidebar = ({ isAgentSidebar }) => {
                     padding: "5px 35px 5px 20px !important",
                 },
                 "& .pro-inner-item:hover": {
-                    color: theme.palette.mode === "light" ? colors.lightBlue.hover : "868dfb !important",
+                    color: theme.palette.mode === "light" ? colors.blueAccent.hover : "868dfb !important",
                 },
                 "& .pro-menu-item.active": {
                     color: "#687fa !important",
                 },
+            
+                [theme.breakpoints.down('lg')]: {
+                    '& .pro-sidebar-inner': {
+                    width: 250, // adjust width for large screens
+                    },
+                    '& .pro-inner-item': {
+                    padding: '5px 30px 5px 15px !important',
+                    },
+                },
+                [theme.breakpoints.down('md')]: {
+                    '& .pro-sidebar-inner': {
+                    width: 200, // adjust width for medium screens
+                    },
+                    '& .pro-inner-item': {
+                    padding: '5px 25px 5px 10px !important',
+                    },
+                },
+                [theme.breakpoints.down('sm')]: {
+                    '& .pro-sidebar-inner': {
+                    width: 150, // adjust width for small screens
+                    },
+                    '& .pro-inner-item': {
+                    padding: '5px 20px 5px 5px !important',
+                    },
+                },
+                [theme.breakpoints.down('xs')]: {
+                    '& .pro-sidebar-inner': {
+                    width: 100, // adjust width for extra small screens
+                    },
+                    '& .pro-inner-item': {
+                    padding: '5px 15px 5px 0px !important',
+                    },
+                },
+        
             }}
         >
             <ProSidebar collapsed={isCollapsed}>

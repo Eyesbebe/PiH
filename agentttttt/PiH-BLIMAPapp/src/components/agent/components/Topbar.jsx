@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../../theme";
@@ -7,12 +8,24 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined"
 import SearchIcon from "@mui/icons-material/Search";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -30,22 +43,41 @@ const Topbar = () => {
 
       {/* ICONS */}
       <Box display="flex">
-        <IconButton onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode === "dark" ? (
-            <DarkModeOutlinedIcon />
-          ) : (
-            <LightModeOutlinedIcon />
-          )}
-        </IconButton>
         <IconButton>
           <NotificationsOutlinedIcon />
         </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
+        <IconButton onClick={handleMenuOpen}>
+          <AccountCircleOutlinedIcon />
         </IconButton>
-        <IconButton>
-          <PowerSettingsNewIcon />
-        </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem>
+            <IconButton>
+              <SettingsOutlinedIcon />
+            </IconButton>
+            Account Setting
+          </MenuItem>
+          <MenuItem>
+            <IconButton onClick={colorMode.toggleColorMode}>
+              {theme.palette.mode === "dark" ? (
+                <LightModeOutlinedIcon />
+              ) : (
+                <DarkModeOutlinedIcon />
+              )}
+            </IconButton>
+            DarkMode
+          </MenuItem>
+
+          <MenuItem>
+            <IconButton>
+              <PowerSettingsNewIcon />
+            </IconButton>
+            Log out
+          </MenuItem>
+        </Menu>
       </Box>
     </Box>
   );

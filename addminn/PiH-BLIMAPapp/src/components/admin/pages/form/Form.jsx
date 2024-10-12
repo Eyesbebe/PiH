@@ -1,19 +1,30 @@
-import { Box, Button, TextField, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { Box, Button, TextField, Select, MenuItem, FormControl, InputLabel, Grid, Input, Typography } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../Header";
+import { useState } from "react";
+import ImageIcon from '@mui/icons-material/Image';
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleFormSubmit = (values) => {
     console.log(values);
   };
 
+  const handleImageChange = (event, setFieldValue) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+      setFieldValue("employee_pic", file);
+    }
+  };
+
   return (
-    <Box m="20px">
-      <Header title="CREATE USER" subtitle="Create a New user Profile" />
+    <Box m="20px" maxWidth="800px" mx="auto">
+      <Header title="NEW EMPLOYEE" subtitle="Create a New Employee Profile" />
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -27,137 +38,269 @@ const Form = () => {
           handleBlur,
           handleChange,
           handleSubmit,
+          setFieldValue,
         }) => (
           <form onSubmit={handleSubmit}>
-            <Box
-              display="grid"
-              gap="45px"
-              gridTemplateColumns="repeat(12, minmax(0, 1fr))"
-              sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 12" },
-              }}
-            >
-              <TextField
-                variant="filled"
-                type="text"
-                label="First Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.firstName}
-                name="firstName"
-                error={touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
-                sx={{ gridColumn: "span 4"}}
-              />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Middle Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.middleName}
-                name="middleName"
-                error={touched.middleName && !!errors.middleName}
-                helperText={touched.middleName && errors.middleName}
-                sx={{ gridColumn: "span 4"}}
-              />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Last Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lastName}
-                name="lastName"
-                error={touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
-                sx={{ gridColumn: "span 4"}}
-              />
-              <TextField
-                variant="filled"
-                type="number"
-                label="Age"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.age}
-                name="age"
-                error={touched.age && !!errors.age}
-                helperText={touched.age && errors.age}
-                sx={{ gridColumn: "span 4", width: "45%"}}
-              />
-              <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 4", width: "45%" }}>
-                <InputLabel>Sex</InputLabel>
-                <Select
-                  label="Sex"
+            <Grid container spacing={3}>
+              {/* Employee Picture Upload */}
+              <Grid item xs={12} sm={3}>
+                <Box
+                  border="1px dashed grey"
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  p={2}
+                  sx={{ mb: 2 }}
+                >
+                  {selectedImage ? (
+                    <Box mb={2}>
+                      <img
+                        src={selectedImage}
+                        alt="Selected"
+                        style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }}
+                      />
+                    </Box>
+                  ) : (
+                    <ImageIcon sx={{ fontSize: 50, color: "grey.500" }} />
+                  )}
+
+                  <Typography variant="h6" color="textSecondary" mb={2}>
+                    {selectedImage ? "Change Image" : "Upload Image"}
+                  </Typography>
+
+                  <Button
+                    variant="contained"
+                    component="label"
+                    color="primary"
+                    sx={{ mb: 2 }}
+                  >
+                    {selectedImage ? "Change Image" : "Select Image"}
+                    <input
+                      type="file"
+                      hidden
+                      accept="image/*"
+                      onChange={(event) => handleImageChange(event, setFieldValue)}
+                    />
+                  </Button>
+
+                  {selectedImage && (
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => {
+                        setSelectedImage(null);
+                        setFieldValue("employee_pic", null);
+                      }}
+                    >
+                      Clear
+                    </Button>
+                  )}
+                </Box>
+              </Grid>
+
+              {/* Stack Name Fields Vertically */}
+              <Grid item xs={12} sm={9}>
+                <Grid container direction="column" spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="filled"
+                      label="First Name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.first_name}
+                      name="first_name"
+                      error={touched.first_name && !!errors.first_name}
+                      helperText={touched.first_name && errors.first_name}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="filled"
+                      label="Middle Name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.middle_name}
+                      name="middle_name"
+                      error={touched.middle_name && !!errors.middle_name}
+                      helperText={touched.middle_name && errors.middle_name}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="filled"
+                      label="Last Name"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.last_name}
+                      name="last_name"
+                      error={touched.last_name && !!errors.last_name}
+                      helperText={touched.last_name && errors.last_name}
+                      fullWidth
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+
+              {/* Address Field */}
+              <Grid item xs={12} sm={8}>
+                <TextField
+                  variant="filled"
+                  label="Address"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.sex}
-                  name="sex"
-                  error={touched.sex && !!errors.sex}
-                >
-                  <MenuItem value=""></MenuItem>
-                  <MenuItem value="Male">Male</MenuItem>
-                  <MenuItem value="Female">Female</MenuItem>
-                </Select>
-                {touched.sex && errors.sex && (
-                  <Box sx={{ color: "red", mt: 1 }}>{errors.sex}</Box>
-                )}
-              </FormControl>
+                  value={values.address}
+                  name="address"
+                  error={touched.address && !!errors.address}
+                  helperText={touched.address && errors.address}
+                  fullWidth
+                  sx={{ mb: 2 }} // Vertical margin
+                />
+              </Grid>
 
-              <TextField
-                variant="filled"
-                type="text"
-                label="Email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.email}
-                name="email"
-                error={touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
-                sx={{ gridColumn: "span 4", width: "75%"}}
-              />
+              {/* Age and Gender Fields */}
+              <Grid item xs={12} sm={2}>
+                <TextField
+                  variant="filled"
+                  type="number"
+                  label="Age"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.age}
+                  name="age"
+                  error={touched.age && !!errors.age}
+                  helperText={touched.age && errors.age}
+                  fullWidth
+                  sx={{ mb: 2 }} // Vertical margin
+                />
+              </Grid>
+              <Grid item xs={12} sm={2}>
+                <FormControl variant="filled" fullWidth>
+                  <InputLabel>Gender</InputLabel>
+                  <Select
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.gender}
+                    name="gender"
+                    error={touched.gender && !!errors.gender}
+                  >
+                    <MenuItem value=""></MenuItem>
+                    <MenuItem value="M">Male</MenuItem>
+                    <MenuItem value="F">Female</MenuItem>
+                  </Select>
+                  {touched.gender && errors.gender && (
+                    <Box sx={{ color: "red", mt: 1 }}>{errors.gender}</Box>
+                  )}
+                </FormControl>
+              </Grid>
 
-              <TextField
-                variant="filled"
-                type="text"
-                label="Contact Number"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.contactNumber}
-                name="contactNumber"
-                error={touched.contactNumber && !!errors.contactNumber}
-                helperText={touched.contactNumber && errors.contactNumber}
-                sx={{ gridColumn: "span 4"}}
-              />
-              <TextField
-                variant="filled"
-                type="text"
-                label="Address"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address}
-                name="address"
-                error={touched.address && !!errors.address}
-                helperText={touched.address && errors.address}
-                sx={{ gridColumn: "span 4"}}
-              />
-              <TextField
-                variant="filled"
-                type="text"
-                label="User Role"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.userRole}
-                name="userRole"
-                error={touched.userRole && !!errors.userRole}
-                helperText={touched.userRole && errors.userRole}
-                sx={{ gridColumn: "span 4"}}
-            
-              />
-            </Box>
-            <Box display="flex" justifyContent="end" mt="20px">
+              {/* Email and Contact Number Fields */}
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="filled"
+                  label="Email Address"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.email_address}
+                  name="email_address"
+                  error={touched.email_address && !!errors.email_address}
+                  helperText={touched.email_address && errors.email_address}
+                  fullWidth
+                  sx={{ mb: 2 }} // Vertical margin
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="filled"
+                  label="Contact Number"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.contact_no}
+                  name="contact_no"
+                  error={touched.contact_no && !!errors.contact_no}
+                  helperText={touched.contact_no && errors.contact_no}
+                  fullWidth
+                  sx={{ mb: 2 }} // Vertical margin
+                />
+              </Grid>
+
+              {/* Account Type and Hire Date Fields */}
+              <Grid item xs={12} sm={6}>
+                <FormControl variant="filled" fullWidth>
+                  <InputLabel>Account Type</InputLabel>
+                  <Select
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.account_types}
+                    name="account_types"
+                    error={touched.account_types && !!errors.account_types}
+                  >
+                    <MenuItem value=""></MenuItem>
+                    <MenuItem value="admin">Admin</MenuItem>
+                    <MenuItem value="agent">Agent</MenuItem>
+                    <MenuItem value="cashier">Cashier</MenuItem>
+                    <MenuItem value="info">Information</MenuItem>
+                  </Select>
+                  {touched.account_types && errors.account_types && (
+                    <Box sx={{ color: "red", mt: 1 }}>{errors.account_types}</Box>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="filled"
+                  type="date"
+                  label="Hire Date"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.hire_date}
+                  name="hire_date"
+                  error={touched.hire_date && !!errors.hire_date}
+                  helperText={touched.hire_date && errors.hire_date}
+                  fullWidth
+                  InputLabelProps={{ shrink: true }}
+                  sx={{ mb: 2 }} // Vertical margin
+                />
+              </Grid>
+
+              {/* Salary and Commission Amount Fields */}
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="filled"
+                  type="number"
+                  label="Salary"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.salary}
+                  name="salary"
+                  error={touched.salary && !!errors.salary}
+                  helperText={touched.salary && errors.salary}
+                  fullWidth
+                  sx={{ mb: 2 }} // Vertical margin
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="filled"
+                  type="number"
+                  label="Commission Amount"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.commission_amount}
+                  name="commission_amount"
+                  error={touched.commission_amount && !!errors.commission_amount}
+                  helperText={touched.commission_amount && errors.commission_amount}
+                  fullWidth
+                  sx={{ mb: 2 }} // Vertical margin
+                />
+              </Grid>
+            </Grid>
+
+            <Box display="flex" justifyContent="center" mt={2}>
               <Button type="submit" color="secondary" variant="contained">
-                Create New User
+                Create New Employee
               </Button>
             </Box>
           </form>
@@ -167,34 +310,38 @@ const Form = () => {
   );
 };
 
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
-const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  middleName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  age: yup.number().required("required"),
-  sex: yup.string().required("required"),
-  contactNumber: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
-  address: yup.string().required("required"), 
-  userRole: yup.string().required("required"),
-});
-
+// Initial form values
 const initialValues = {
-  firstName: "",
-  middleName: "",
-  lastName: "",
-  email: "",
-  age: "",
-  sex: "",
-  contactNumber: "",
+  first_name: "",
+  middle_name: "",
+  last_name: "",
   address: "",
-  userRole: "",
+  age: "",
+  gender: "",
+  email_address: "",
+  contact_no: "",
+  account_types: "",
+  hire_date: "",
+  salary: "",
+  commission_amount: "",
+  employee_pic: null,
 };
+
+// Validation schema using yup
+const checkoutSchema = yup.object().shape({
+  first_name: yup.string().required("Required"),
+  middle_name: yup.string().required("Required"),
+  last_name: yup.string().required("Required"),
+  address: yup.string().required("Required"),
+  age: yup.number().required("Required"),
+  gender: yup.string().required("Required"),
+  email_address: yup.string().email("Invalid email").required("Required"),
+  contact_no: yup.string().required("Required"),
+  account_types: yup.string().required("Required"),
+  hire_date: yup.string().required("Required"),
+  salary: yup.number().required("Required"),
+  commission_amount: yup.number().required("Required"),
+  employee_pic: yup.mixed().required("Image is required"),
+});
 
 export default Form;
